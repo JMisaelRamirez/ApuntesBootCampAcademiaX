@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*Reseteamos los margenes*/
+        body {
+            margin: 0; /*Es el margen del body*/
+        }
+
+        div, span {
+        /*Establecemos el background-color para ver como se comporta como una caja el div y el span*/
+        background-color: red;
+        /*Establecemos un margen entre la caja y el contenido*/
+        padding: 10px;
+        /*Tambien podemos agregar un borde (marco) a esas cajas*/
+        border: 10px solid blue;
+        /*Hay otro tipo de borde llamada dashed que aplicaremos al elemento selector p*/
+        /*Creamos un margen tambien a la caja*/
+        margin: 20px; /*Podemos ver como se crea un margen al rededor de esa caja
+        comparando las cajas del dv y el span con las del selector p*/
+        /*Ahora, podemos agregar un ancho en la caja del contenido*/
+        width: 100px; /*Podemos observar como la caja del div se agranda unicamente, el span no*/
+        /*Tambien podemos definir el alto de la caja de contenido*/
+        height: 100px; /*Los elementos div si se agrandan, los span no lo hacen*/
+        box-sizing: content-box;
+       }
+
+       p {
+        background-color: red;
+        padding: 10px;
+        border: 2px dashed blue;
+       }
+    </style>
+</head>
+<body>
+    <div>Soy un div</div>
+    <br/>
+    <span>Soy un span</span>
+    <br/>
+    <br/>
+    <p>soy un parrafo</p>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba JSX</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+function Saludo (props) { // Para obtener propiedades como atributos de una etiqueta se utliza la palabra props.
+    return <h1>Hello {props.name} {props.apellido}</h1>
+}
+
+function Login (props) {
+    return (
+        <form action="/action.php" method="POST">
+            <label for="name" >Nombre</label>
+            <input id="name" name="name" value={props.name}></input>
+            <br />
+            <br />
+            <label>
+                Email
+                <input name="email" type="email" required placeholder="misael.360@ejemplo.com"></input>
+            </label>
+            <br />
+            <br />
+            <button>Iniciar Sesion</button>
+        </form>
+    );
+}
+
+function App () {
+    return (
+        <div>
+            <Saludo name="Misael" apellido="Ramirez" />
+            <Login name="Jencita" />
+        </div>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    width: 50%;
+    font-size: 100%;
+    
+}
+h1 {
+    color: black;
+    background: greenyellow;
+    width: 90px;
+}
+p {
+    background-color: greenyellow;
+    /*px Absoluta*/
+    /*width: 120px*/
+    /*% realtive al tamaño del padre*/
+    width: 100%;
+    /*em es una unidad relativa al font size del padre*/
+    font-size: 3em;
+    /*rem es una unidad relativa al font-size de la raiz*/
+    font-size: 1rem;
+}
