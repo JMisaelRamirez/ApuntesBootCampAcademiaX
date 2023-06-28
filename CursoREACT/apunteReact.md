@@ -97,7 +97,7 @@ ReactDOM.render(h1, document.getElementById('root'));
 **NOTA**: babel puede transformar un archivo .js con lengujae JSX a un archivo .js con lenguaje JAVASCRIPT 
 
 ## **COMPONENTES**
-## **Componentes**
+## **Componentes con funciones**
 En REACT hay dos formas de crear componentes: 
 1. Por medio de funciones.
 2. Por medio de clases.
@@ -194,10 +194,12 @@ function Login (props) {
             <label for="name" >Nombre</label>
             <input id="name" name="name" value={props.name}></input>
             <br />
+            <br />
             <label>
                 Email
                 <input name="email" type="email" required placeholder="misael.360@ejemplo.com"></input>
             </label>
+            <br />
             <br />
             <button>Iniciar Sesion</button>
         </form>
@@ -215,6 +217,362 @@ function App () {
 
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
+Nosotros podriamos crear nuestro propios componente y utilizarlos. Incluso, existen librerias de react en  `Material UI .com` en el cual podemos utilizar en nuestro proyectos. 
+
+> Reto:
+![Reto2](../CursoREACT/srcReact/02%20Reto.png)
+
+```jsx
+let nombre = 'Jenniffer';
+let grupo = 'Ventas El Molino';
+
+
+let Notificacion = (props) => {
+    return (
+        <div class='contenedor'>
+            <a href='#'>
+                <div>
+                    <img src='#' alt='Foto de Perfil'/>
+                </div>
+                <div>
+                    <span>
+                        <b>{nombre}</b> te menciono en un comentario en <b>{grupo}</b>
+                    </span>
+                </div>
+            </a>
+        </div>
+    );
+};
+
+let App = () => {
+    return (
+        <div>
+            <Notificacion />
+            <Notificacion />
+            <Notificacion />
+        </div>
+    );    
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+## **Funciones con clasees***
+El dia de hoy ya no se ocupan los componentes creados con clases. Todas las clase tienen un metodo que se llama render.
+> Creando un componentes con clase: 
+```jsx
+class Bienvenido extends React.Component {
+    render() {
+        return <h1>Welcome {this.props.name}!</h1>
+    }
+}
+
+ReactDOM.render(<Bienvenido name='Misael'/>, document.getElementById('root'));
+```
+A diferencia de los componentes con funciones estos componentes tienen ciclos de vida.
+
+> Reto 3:
+
+![Reto 3](../CursoREACT/srcReact/03%20Reto.png)
+
+```jsx
+class Nota extends React.Component {
+    render() {
+        return (
+            <div class='contenedor'>
+                <div class='titulo'>
+                    <h1>{this.props.titulo}</h1>
+                </div>
+                <div class='contenido'>
+                    <p>{this.props.contenido}</p>
+                </div>
+                <div class='hora'>
+                    <p>
+                        <b>{this.props.hora}</b>
+                    </p>
+                </div>
+            </div>
+
+        );
+    }
+}
+
+ReactDOM.render(<Nota titulo='PASEAR AL PERRO' contenido='Pasear al perro de la vecina llamado Tomy' hora='17:00 hrs'/>, document.getElementById('root'));
+```
+## **Eventos en React**
+> Crear un evento en react utilizando el atributo onclick='() => alert{"Alerta!"}' en html. En este caso, React reacciona a onclick de la siguiente manera `onClick`
+
+```jsx
+function Alertando (props) {
+    let alerta = () => alert(props.mensaje);
+    return <button onClick={alerta}>Click!</button>
+
+}
+// Definiendo un evento en componente clase
+/*
+class Alertando extends React.Component {
+    render () {
+        let alerta = () => alert(this.props.mensaje);
+        return <button onClick={alerta}>Click!</button>
+    }
+}
+*/
+
+ReactDOM.render(<Alertando mensaje='Te Amo mucho, Jencita Bonita!!! <3'/>, document.getElementById('root'));
+
+// Ahora
+```
+
+> Obtener el evento por medio de una variable, en este caso un evento de mouse:
+```jsx
+function Alertando (props) {
+    let alerta = (e) => console.log("Alerta!", e); // Aqui esta la magia
+    return <button onClick={alerta}>Click!</button>
+
+}
+
+ReactDOM.render(<Alertando mensaje='Te Amo mucho, Jencita Bonita!!! <3'/>, document.getElementById('root'));
+```
+La salida en consola es: 
+
+![Evento](/CursoREACT/srcReact/evento.JPG)
+
+> Reto:
+![Reto 4](/CursoREACT/srcReact/04%20Reto.png)
+
+```jsx
+function cambiarCorreo () {
+
+}
+
+function cambiarClave () {
+
+}
+
+
+function Formulario () {
+
+}
+```
+
+## **Estados**
+Cada componente en React va a tener un estado.Por ejemplo el estado de un checkbox. Por ejemplo un input, cuando cambiamos syu estado al cambiar el valor dentro de el. 
+> Estableciendo un HOOK:
+```jsx
+function Contador () {
+    const [cuenta, setCuenta] = React.useState(0); // Inicializamos el state en 0
+
+    return (
+        <div>
+              <h1>{cuenta}</h1>
+              <input type='email'></input>
+              <button onClick={() => {setCuenta(cuenta + 1)}}>Click!</button>
+        </div>
+    );
+}
+
+// Ahora, un gancho en componente de clase:
+/*
+class Contador extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {cuenta: 1}
+    }
+    
+    render() {
+        return (
+            <div>
+              <h1>{this.state.cuenta}</h1>
+              <input type='email'></input>
+              <button onClick={() => this.setState((state, props) => ({cuenta: state.cuenta + 1 }))}>Click!</button>
+            </div>
+
+        );
+
+        
+    }
+}
+*/
+
+ReactDOM.render(<Contador/>, document.getElementById('root'))
+```
+
+>Reto: 
+![Reto 5](/CursoREACT/srcReact/05%20Reto.png)
+
+```jsx
+function SelectorDeProducto () {
+    const [producto, setProducto] = React.useState(0);
+
+    const sumaProducto = () => {
+        setProducto(producto + 1);
+    }
+
+    const restaProducto = () => {
+        if(producto > 0){
+            setProducto(producto - 1);
+        }  
+    }
+
+    return (
+        <div>
+            <h1>{producto}</h1>
+            <button class='botonResta' onClick={() => restaProducto()} >-</button>
+            <button class='botonSuma'  onClick={() => sumaProducto()}>+</button>
+        </div>
+        
+    );
+
+}
+
+ReactDOM.render(<SelectorDeProducto />, document.getElementById('root'));
+```
+## **Condicionales**
+Se puede utilizar en logica como, si el usuario esta autorizado muestra este componente, si no esta autorizado mueestra este otro componente. Se puede utilizar esta logica para mostrar parte de la aplicacion solo a usuarios autorizados.
+
+> Establecinedo un acondicion basica y comun:
+
+```jsx
+function Condicionales (props) {
+    if (props.autorizado) return <h1>Bienvenido</h1> // props.autorizado ? true
+    else return <h1>No Autorizado</h1>
+}
+
+ReactDOM.render(<Condicionales autorizado/>, document.getElementById('root'));
+// Para ser no autorizado quitamos la propiedad y retorna No Autorizado.
+// ReactDOM.render(<Condicionales />, document.getElementById('root'));
+// Si simplemente definimos el nombre de la propiedad, se establece como que si autorizado fuese true. Por eso, el return retorna `Bienvenido`
+```
+
+> Simplificando el codigo anterior sin utilizar if y utilizando otro tipo de condicional:
+```jsx
+function Condicionales (props) {
+    return props.autorizado ? <h1>Bienvenido</h1> : <h1>No Autorizado</h1>;
+    // El comando anterior se lee: props.autorizado es true? Si si, se ejecuta ->
+    // <h1>Bienvenido</h1> d elo contrario -> <h1>No Autorizado</h1>
+} 
+
+ReactDOM.render(<Condicionales autorizado/>, document.getElementById('root'));
+```
+
+> Haciendo que un componente retore nulo:
+
+```jsx
+function Condicionales (props) {
+     return props.acceso ? <h1>Bienvenido</h1> : null;
+    // Si quisieramos utilizar null, como en este caso, hay un truco dentro de javascript:
+    // return props.acceso && <h1>Bienvenido</h1>; 
+    // En el comando anterior, si props.acceso es true -> true && <h1>Bienvenido</h1>, por lo que la salida sera <h1>Bienvenido</h1>.
+
+}
+
+ReactDOM.render(<Condicionales acceso/>, document.getElementById('root'));
+```
+
+> Usando la comparacion utilizando null como en los ejemplos anteriores. Aplicaremos lo anterios a una aplicacion con un gancho
+
+```jsx
+function Condicionales (props) {   
+     return props.acceso ? <h1>Autorizado</h1> : <h1>Sin Autorizacion</h1>;
+}
+
+function App () {
+    const [autorizacion, setAutorizacion] = React.useState(false)
+    return (
+        <div>
+            <h1>Bienvenido</h1>
+            <button class='botonAutorizar' onClick={() => (setAutorizacion(true))}>Autorizar</button>
+            <Condicionales acceso = {autorizacion}/>    
+        </div>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+> Reto:
+
+![Reto 6](/CursoREACT/srcReact/06%20Reto.png)
+
+```jsx
+function SignUp (props) {
+    if(props.sesion) {
+        return ( 
+                 <form>
+                    <h1>Formulario</h1>
+                    <input type='email' placeHolder='nombre.360@ejemplo.com' required></input>
+                    <br/>
+                    <input type='password' required placeHolder='password'></input>
+                    <button>Summit</button>
+                </form>
+        );
+    }
+    else return null;
+}
+
+function App () {
+    const [sesion, setSesion] = React.useState(false);
+    return (
+        <div>
+            <button onClick = {() => (setSesion(true))}>SignUp</button>
+            <SignUp sesion = {sesion}/>   
+        </div>
+    );
+}
+
+ReactDOM.render(<App sesion/>, document.getElementById('root'));
+```
+
+## **Listas**
+
+> Crear una lista con React: 
+```jsx
+function Series () {
+    const series = ['Silicon Valley', 'Mr. Robot', 'Black Mirror'];
+    return (
+        <ul>
+            {series.map(s => (<li>{s}</li>))}
+        </ul>
+    );
+}
+
+ReactDOM.render(<Series />, document.getElementById('root'));
+```
+> Pasando la lista como propiedad:
+```jsx
+function Series (props) {
+    
+    return (
+        <ul>
+            {props.series.map(s => (<li>{s}</li>))}
+        </ul>
+    );
+}
+const series = ['Silicon Valley', 'Mr. Robot', 'Black Mirror'];
+
+ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
+```
+ Hay un requerimiento adicional cuando se trabaja con listas. Si vamos a la consola del navegador al ejecutar la lista, menciona que una lista debe de tener una popiedad unica de key (llave). Esto es, por qu ereact quiere que cada una de estas listas tenga un identificacion unica, esto es por si cambia la lista react solo va a cambiar lo que se cambio por la lista. 
+
+ > Estableciendo una identificacion unica (key) a la lista generada anteriormente:
+
+ ```jsx
+ function Series (props) {
+    
+    return (
+        <ul>
+            {props.series.map(s => (<li key={s}>{s}</li>))} 
+            
+        </ul>
+    );
+}
+// La identificacion se estableci dentro de la etiqueta <li> con la palabra reservada key=''
+const series = ['Silicon Valley', 'Mr. Robot', 'Black Mirror'];
+
+ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
+ ```
+
+
 
 
 # **DUDAS**
@@ -222,9 +580,20 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 > Que son los --presets
 
+> Estudiar mas eventos con clases y hooks y mas sobre clases y herencia polimorfismo etc, 
+
 # **NOTAS RAPIDAS**
 > Que es npx: npx es un comando que viene con npm que permite correr cierto programas que instalo con npm. 
 
 > SI vamos a crear una aplicacion tenemos que unir todos los componentes para que funcionen juntos. 
 
 > Se pueden mandar a llamar componentes con {NombreDeFuncion()} o incluso `<NombreDeLaFuncion/>`
+
+> `<input type='email' onChange={getCorreo}></input>` -> onChange nos permite detectar un evento de cambio de valor de input el cual podemos utilizar. 
+
+## **PENDIENTES***
+
+> Reto 4
+
+
+
