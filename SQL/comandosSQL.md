@@ -389,7 +389,7 @@ SELECT pais, COUNT(*) AS numero FROM usuarios GROUP BY paises HAVING COUNT(*) >=
 ```
 > Reto:
 
-![retoAgrupar](/SQL/srcSQL/retoAgrupar.png)
+![retoAgrupar](../SQL/srcSQL/retoAgrupar.png)
 
 ## **Funciones agregadas**
 Pueden utilizarse en la agrupacion de varios elementos y asi mostrar otra columna con el resultado de la operacion para cada grupo: 
@@ -683,6 +683,6 @@ FALTA TEMRINAR DE VER EL CAPITULO 10 DE COMPLEMENTOS!!!!
 
 FACEBOOK
 Cuentas
--------------------------------------------------------
+--------------------------------------------------------------
 id usuario      nombre  apellido    hash        sal     edad 
 1  MichDroid    Misael  Ramirez     hswjsnxd    hswhs   25      
