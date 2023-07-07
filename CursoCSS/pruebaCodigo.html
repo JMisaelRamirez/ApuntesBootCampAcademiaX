@@ -1,29 +1,63 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html>
-    <head>
-        <style>
-            p {
-                color: blue;
-            }
-            .claseTexto {
-                color: red;
-            }
-            .claseTexto span {
-                color: green;
-            }
-            #textoUnico {
-                color: blueviolet
-            }
-            span {
-                color: bisque;
-            }
-        </style>
-    </head>
-    <body>
-        <p>Texto 1</p>
-        <p class="claseTexto">Texto <span>2</span></p>
-        <p class="claseTexto">Texto <span>3</span></p>
-        <p id="textoUnico">Texto <span>4</span></p>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*Reseteamos los margenes*/
+        body {
+            margin: 0; /*Es el margen del body*/
+        }
+        
+       
+        .contenido div, form {
+            
+           
+            /*Establecemos el background-color para ver como se comporta como una caja el div y el span*/
+            background-color: red;
+            /*Establecemos un margen entre la caja y el contenido*/
+            padding: 20px;
+            /*Tambien podemos agregar un borde (marco) a esas cajas*/
+            border: 10px solid blue;
+            /*Hay otro tipo de borde llamada dashed que aplicaremos al elemento selector p*/
+            /*Creamos un margen tambien a la caja*/
+            margin: 20px; /*Podemos ver como se crea un margen al rededor de esa caja
+            comparando las cajas del dv y el span con las del selector p*/
+            /*Ahora, podemos agregar un ancho en la caja del contenido*/
+            width: 100px; /*Podemos observar como la caja del div se agranda unicamente, el span no*/
+            /*Tambien podemos definir el alto de la caja de contenido*/
+            height: 100px; /*Los elementos div si se agrandan, los span no lo hacen*/
+       }
+
+       .contenido form {
+        padding: 20px;
+        background-color: green;
+        width:300px;
+       }
+       .contenido {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 250px;
+       }
+
+    
+    </style>
+</head>
+<body>
+    <div class="contenido">
+        <div >Soy un div</div>
+        <form action="">
+            <label for="">
+                Nombre
+                <input type="text">
+            </label>
+            <input type="submit">
+        </form>
+    </div>
+        
+    
+</body>
 </html>

@@ -257,7 +257,7 @@ let App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## **Funciones con clasees***
+## **Componentea con clasees***
 El dia de hoy ya no se ocupan los componentes creados con clases. Todas las clase tienen un metodo que se llama render.
 > Creando un componentes con clase: 
 ```jsx
@@ -335,10 +335,10 @@ ReactDOM.render(<Alertando mensaje='Te Amo mucho, Jencita Bonita!!! <3'/>, docum
 ```
 La salida en consola es: 
 
-![Evento](/CursoREACT/srcReact/evento.JPG)
+![Evento](../CursoREACT/srcReact/evento.JPG)
 
 > Reto:
-![Reto 4](/CursoREACT/srcReact/04%20Reto.png)
+![Reto 4](../CursoREACT/srcReact/04%20Reto.png)
 
 ```jsx
 function cambiarCorreo () {
@@ -398,7 +398,7 @@ ReactDOM.render(<Contador/>, document.getElementById('root'))
 ```
 
 >Reto: 
-![Reto 5](/CursoREACT/srcReact/05%20Reto.png)
+![Reto 5](../CursoREACT/srcReact/05%20Reto.png)
 
 ```jsx
 function SelectorDeProducto () {
@@ -492,7 +492,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 > Reto:
 
-![Reto 6](/CursoREACT/srcReact/06%20Reto.png)
+![Reto 6](../CursoREACT/srcReact/06%20Reto.png)
 
 ```jsx
 function SignUp (props) {
@@ -572,6 +572,515 @@ const series = ['Silicon Valley', 'Mr. Robot', 'Black Mirror'];
 ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
  ```
 
+ > Estableciendo una identificacion unica (key) a la lista generada anteriormente por medio de el indice que gerera map (NOTA   : esto no es recomendarlo hacerlo al menos que en realidad no tenga ningun indicador de lllave unica.):
+
+ ```jsx
+  function Series (props) {
+    
+    return (
+        <ul>
+            {props.series.map((s, i) => (<li key={i}>{s}</li>))} 
+            
+        </ul>
+    );
+}
+// La identificacion se estableci dentro de la etiqueta <li> con la palabra reservada key=''
+const series = ['Silicon Valley', 'Mr. Robot', 'Black Mirror'];
+
+ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
+ ```
+
+ > Reto 7:
+
+ ![Reto 7](../CursoREACT/srcReact/07%20Reto.png)
+
+ ```jsx
+ const juegos = [
+    {name: "Mario Bros 3", key: 1}, 
+    {name: "8 Ball Pool", key: 2}, 
+    {name: "Preguntados", key: 3},
+    {name: "Harry Potter", key: 4}
+    ];
+
+function Acceso (props) {
+    return (
+        <div>
+            <h1>Accesos</h1>
+            <ul>{props.juegos.map(j => (<li key={j.key}>{j.name}</li>))}</ul>
+        </div>
+    )
+}
+
+ReactDOM.render(<Acceso juegos={juegos}/>, document.getElementById('root'));
+ ```
+
+## **Ciclos de Vida**
+Tambien llamados life cycle hooks. Cuando trabajamos con componentes, los componenetes de clase normalmente van a tener diferentes estados. Por ejemplo existe un estado donde el componente se crea por primera vez (status:inicio), cuando cambio sus propiedas (estado: update), ahora, cuando remuevo un componente totoalmente (estado. desctruccion del componente). Estos son metodos que se llaman del backend. Los ciclos de vida son metodos se que llaman estas diferentes situaciones.
+
+Ejemplo 1. Si tenemos un componente que se montara por primera vez y este componente necesita informacion del bakcend por primera vez puede ser una buena idea usar el ciclo de vida de iniciacion para obtener los datos del backend e insertarlos en el componente.
+
+Ejemplo 2. Esto tambien puede ser util si cuando dentro del componente utilizamos un codigo que requiere mucha memoria, como por ejemplo un setInterval() que esta todo el tiempo contando. Para no tener perdidas de memoria y mejorar el rendimiento de la aplicacion, es una buena idea remover ese set interval, osea, hacer un clear en ese set interval cuando se remueve el componente. 
+
+> Creando una componente clase Reloj: 
+
+Los ciclos de vida en React son los eventos que ocurren desde que se monta (se renderiza por primera vez) un componente hasta que se desmonta (se elimina del DOM). Los ciclos de vida incluyen:
+●	componentDidMount(): se ejecuta una vez después de que el componente se haya montado en el DOM.
+●	componentDidUpdate(): se ejecuta después de que el componente se haya actualizado.
+●	componentWillUnmount(): se ejecuta justo antes de que el componente sea desmontado del DOM.
+Cada uno de estos ciclos de vida tiene un propósito específico y pueden ser utilizados para ejecutar ciertas acciones en momentos específicos del ciclo de vida del componente.
+Visualización de Ciclos de Vida en React:
+https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+
+> Creando un reloj con una funcion: No tiene mucho que ver con el tema:
+```jsx
+function Tiempo () {
+    let tiempo = new Date().toLocaleTimeString();
+
+    return (
+        <div>
+            <h1>QUE HORA ES ?</h1>
+            <h2>Son las: {tiempo}</h2>    
+        </div>
+
+    );
+}
+
+ReactDOM.render(<Tiempo/>, document.getElementById('root'));
+```
+
+> Codear un componente Reloj por medio de clase. 
+```jsx
+class Reloj extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {fecha: new Date().toLocaleTimeString()} // Esta es una forma de declarar un state o hook, ya no se define el useState
+    }
+
+    tick () {
+        this.setState(() => ({fecha: new Date().toLocaleTimeString})) // Siempre Podremos utilizar setState
+    }
+
+    render () {
+        return (
+            <div>
+                <h1>¿Que hora es?</h1>
+                <h2>Son las: {this.state.fecha}</h2>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<Reloj />, document.getElementById('root'))
+```
+> Utilizando el ciclo de vida componentDidMount(), y codear dentro de el un setInterval para iterar el cambio de la hora:
+```jsx
+class Reloj extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {fecha: new Date().toLocaleTimeString() } // Esta es una forma de declarar un state o hook, ya no se define el useState
+    }
+
+    componentDidMount() {
+        setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+
+    tick() {
+        this.setState(() => ({
+            fecha: new Date().toLocaleTimeString()
+        })) // Siempre Podremos utilizar setState
+    }
+
+    render () {
+        return (
+            <div>
+                <h1>¿Que hora es?</h1>
+                <h2>Son las: {this.state.fecha}</h2>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<Reloj />, document.getElementById('root'))
+```
+
+> Siempre que utilizamos temporiazadores dentro de java script es una buena practica apagarlos una vez que ya no los estemos utilizando, para hacer esto utilizaremos otro metodo que se llama componenteWhillUnmount():
+
+```jsx
+class Reloj extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {fecha: new Date().toLocaleTimeString() } // Esta es una forma de declarar un state o hook, ya no se define el useState
+    }
+
+    componentDidMount() {
+        this.timerId = setInterval( // Guardamos el timer en una propiedad o identificacion del temporizador 
+            () => this.tick(),
+            1000
+        );
+    }
+
+    componentWillUnmount() { // Con este metodo aseguramos que cuando removamos este componente se eliminara el timer Id para que no haya perdidas de memoria 
+        clearInterval(this.timerId);
+    }
+
+    tick() {
+        this.setState(() => ({
+            fecha: new Date().toLocaleTimeString()
+        })) // Siempre Podremos utilizar setState
+    }
+
+    render () {
+        return (
+            <div>
+                <h1>¿Que hora es?</h1>
+                <h2>Son las: {this.state.fecha}</h2>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<Reloj />, document.getElementById('root'))
+```
+
+
+
+Nota: Un ciclo de vida natural de JavaScript es el constructor, este se va a llamar antes que cualquier otro ciclo de vida. Entonces, cual seria el ciclo de vida de un componente: 
+1. Primero se va a instanciar con el metodo constructor() 
+2. Corre la funcion render().
+2. Segundo se va a montar el componente y podremos usar componentDidMount() 
+3. Podriamos actualizar el componente y poder utilizar componentDidUpdate()
+4. Y cuando se elimine podremos usar componentWillUnmount() 
+
+Aqui esta otra representacion del ciclo de vida de un componente. 
+
+![Vida del Componente](../CursoREACT/srcReact/cicloDeVida.JPG)
+
+Nota: Si tabajamos con hook o ganchos ya tenemos que pensar menos en los ciclos de vida 
+
+> Reto 8:
+
+![Reto 8](../CursoREACT/srcReact/08%20Reto.png)
+
+```jsx
+class Detalles extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {data: {}}
+    }
+
+
+}
+INCOMPLETOOOOOOOO
+```
+
+## **Formularios**
+Cuando trabajamos con formularios directamente en HTML, la informacion se guarda dentro de los elementos de html. 
+Con REACT vamos a extraer esa informacion de esos elementos y asi poder hacer lo que queramos con esa informacion antes de enviarla la BACKEND 
+ 
+> Formulario basico en HTML puro dentro de REACT:
+
+```jsx
+function Formulario (){
+    return (
+        <form action="/destino.html">
+            <label>
+                Nombre:
+                <input type="text" name="nombre"/>    
+            </label>
+            <input type="submit" value="Enviar" />
+        </form>
+    );
+}
+
+ReactDOM.render(<Formulario />, document.getElementById('root'))
+```
+
+> Trabajando con el Input con ayuda de REACT, lo cual nos sirve para obtener los datos de las etiquetas. Accediendo a los datos de las etiquta de un form en nivel de react y del componente:
+
+```jsx
+///*
+function Formulario (){
+    const [nombre,setNombre] = React.useState('');
+
+    const onChange = (evento) => {
+        console.log(evento)
+        setNombre(event.target.value)
+        // Incluso, puede ser asi:
+        // setNombre(evento.target.value)
+    }
+    /*
+     const restaProducto = () => {
+        if(producto > 0){
+            setProducto(producto - 1);
+        }  
+    }
+    La funcion anterior se manda a llamar asi:
+    onClick={() => sumaProducto()}, y por que con la funcion:
+    const onChange = (evento) => {
+        console.log(evento)
+        setNombre(event.target.value)
+        // Incluso, puede ser asi:
+        // setNombre(evento.target.value)
+    }
+    no se puede llamar igual. Sin embargo, se debe de llamar asi:
+    onChange={onChange}
+    */
+
+    /*
+    En el caso de la función sumaProducto, es posible llamarla utilizando onClick={() => sumaProducto()} porque la función no espera recibir ningún argumento. Al envolver sumaProducto() dentro de una función de flecha sin argumentos, se ejecuta correctamente cuando se hace clic.
+
+En cambio, en el caso de la función onChange, esta función se utiliza como un controlador de eventos para el evento onChange de un input. Los eventos en React se pasan automáticamente como argumentos al llamar a la función del controlador de eventos. Por lo tanto, si intentas llamar a onChange directamente como onChange={onChange}, se producirá un error porque React intentará pasar el evento como argumento, pero onChange espera recibir un evento explícitamente.
+
+Para solucionar esto, puedes utilizar una función de flecha en línea para llamar a onChange con el evento adecuado, de la siguiente manera: onChange={evento => onChange(evento)} o simplemente onChange={onChange}.
+    */
+
+    // En resumen si se puede pasar como onChange={() => onChange()} pero agregado el parametro del evento:
+    // onChange={(e) => onChange(e)} o tambien onChange={onChange}
+
+    return (
+        <form action="/destino.html">
+            <label>
+                Nombre:
+                <input type="text" name="nombre" value={nombre} onChange={onChange}/>    
+            </label>
+            <input type="submit" value="Enviar" />
+        </form>
+    );
+}
+// El problema en tu código se encuentra en la forma en que estás pasando la función 
+// onChange al evento onChange del input.
+// En lugar de llamar directamente a la función onChange como onChange={() => onChange()}, debes pasarla sin los 
+// paréntesis, de la siguiente manera: onChange={onChange}. Esto se debe a que el evento onChange 
+// ya pasa automáticamente el objeto de evento como argumento cuando se llama a la función.
+//*/
+
+/*
+class Formulario extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {nombre: ''}
+    }
+
+    onChange = evento => {
+        console.log(evento)
+        this.setState({nombre: event.target.value})
+    }
+
+
+    render(){
+        return (
+            <form action="/destino.html">
+            <label>
+                Nombre:
+                <input type="text" name="nombre" value={this.state.nombre} onChange={this.onChange}/>    
+            </label>
+            <input type="submit" value="Enviar" />
+            </form>
+        );
+    }
+}
+*/
+
+ReactDOM.render(<Formulario />, document.getElementById('root'))
+```
+
+> Controlando lo que sucedera cuando se envia la informacion con OnSubmit:
+
+```jsx
+/*
+function Formulario (){
+    const [nombre,setNombre] = React.useState('');
+
+    const onChange = (evento) => {
+        console.log(evento)
+        setNombre(event.target.value)
+        // Incluso, puede ser asi:
+        // setNombre(evento.target.value)
+    }
+
+    const onSubmit = (evento) => {
+        alert(`Formulario envia: ${nombre}`);
+        event.preventDefault(); // Evita que el formulario se comporte de forma predeterminada
+        // la manera en que se comporta el form es que quedra mandar la informacion.
+
+    }
+
+    return (
+        <form onSubmit={(e) => onSubmit(e)}>
+            <label>
+                Nombre:
+                <input type="text" name="nombre" value={nombre} onChange={onChange}/>    
+            </label>
+            <input type="submit" value="Enviar" />
+        </form>
+    );
+}
+*/
+
+// Con clase:
+///*
+class Formulario extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {nombre: ''}
+    }
+
+    onChange = evento => {
+        console.log(evento)
+        this.setState({nombre: event.target.value})
+    }
+
+    onSubmit = evento => {
+        alert('Formulario evia: ' + this.state.nombre)
+        event.defaultPrevented();
+    }
+
+
+    render(){
+        return (
+            <form onSubmit={this.onSubmit}>
+            <label>
+                Nombre:
+                <input type="text" name="nombre" value={this.state.nombre} onChange={this.onChange}/>    
+            </label>
+            <input type="submit" value="Enviar" />
+            </form>
+        );
+    }
+}
+//*/
+
+ReactDOM.render(<Formulario />, document.getElementById('root'))
+```
+Nota: Dentro de type='text' de la primera etiqueta input, podemos colocar textarea y el espacio del input se volvera mas grande
+
+Las maneras en las que obtuvimos la informacion de los elementos de html son mejor utilizando react a comparacion de utilizar las Api's del DOM
+
+> Lo mismo del codigo anterior pero con una etiqueta select:
+
+```jsx
+class Formulario extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {nombre: 'Jeny'}
+    }
+
+    onChange = evento => {
+        console.log(evento)
+        this.setState({nombre: event.target.value})
+    }
+
+    onSubmit = evento => {
+        alert('Formulario evia: ' + this.state.nombre)
+        event.preventDefault();
+    }
+
+
+    render(){
+        return (
+            <form onSubmit={this.onSubmit}>
+            <label>
+                Nombre:
+                <select
+                    name="nombre"
+                    value={this.state.nombre}
+                    onChange={this.onChange}>
+                        <option value="Jenyyy">Jeny</option>
+                        <option value="Misael">Misael</option>
+                        <option value="Sonia">Sonia</option>
+                
+                </select>  
+            </label>
+            <input type="submit" value="Enviar" />
+            </form>
+        );
+    }
+}
+//*/
+
+ReactDOM.render(<Formulario />, document.getElementById('root'))
+```
+
+Con los codigos anteriores puedes manipular los datos y hacer validacion con los datos. Hay veces que todos los componentes no deben de ser controlados 
+
+NOTA: Revisar mas sobre refs o referencias que es otra manera de obtener los datos de formularios utilizando referencias del dom en ligar de tener estos componentes controlados. 
+
+Tambien existen librerias hoy en dia que nos permiten hacer muchsiimas cosas inmediatamente, en vez de que nosotros hagakmos validacion de los datos, podemos utilizar una libreria que se llama formit por que es mucho mas facil hacer validacion de datoa para proyectos mas grandes
+
+Libreria para ver la diferencia entre componentes no controlados y controlados y cuando e smejor idea utilizaar uno o el otro :
+https://es.reactjs.org/docs/forms.html#controlled-components
+
+> Reto 9: 
+![Reto 9](../CursoREACT/srcReact/09%20Reto.png)
+
+```jsx
+function NuevaClave () {
+    const [claveAntigua,setClaveAntigua] = React.useState('Myspace08360');
+    const [claveNueva, setClaveNueva] = React.useState('');
+    const [confirmarClaveNueva, setConfirmarClaveNueva] = React.useState('');
+
+    let onChangeOld = event => {
+        console.log(event)
+        setClaveAntigua(event.target.value);
+
+    }
+    let onChangeNew = event => {
+        console.log(event)
+        setClaveNueva(event.target.value);
+    }
+    let onChangeConfirm = event => {
+        console.log(event)
+        setConfirmarClaveNueva(event.target.value);
+    }
+
+    let mensaje = (e) => {
+        if (claveAntigua == e.target[0].value) {
+            if (claveNueva != confirmarClaveNueva) {
+            alert(
+                'Verificar que la clave nueva y la clave confirmada coincidan'
+                );
+            }
+            else {
+                alert('Las claves coinciden');
+                setClaveAntigua(claveNueva);
+            }
+        }
+        else alert('Clave antigua incorrecta');
+
+    }
+
+    let enviarFormulario = (e) => {
+        event.preventDefault();
+        mensaje(e);
+    }
+
+    return (
+        <div>
+            <form onSubmit={enviarFormulario}>
+                <label for="old_password">Old password</label>
+                <input type="text" id="old_password"  />
+                <br/>
+                <label for="new_password">New password</label>
+                <input type="text" id="new_password" onChange={onChangeNew} value={claveNueva}/>
+                <br/>
+                <label for="confirm_new_password" >Confirm new password</label>
+                <input type="text" id="confirm_new_password" onChange={onChangeConfirm} value={confirmarClaveNueva}/>
+                <br/>
+                <input type="submit" value="Enviar"></input>
+            </form>
+        </div>
+
+    );
+}
+
+ReactDOM.render(<NuevaClave />, document.getElementById('root'));
+```
+
+## **Paso de Estado**
 
 
 
@@ -582,6 +1091,10 @@ ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
 
 > Estudiar mas eventos con clases y hooks y mas sobre clases y herencia polimorfismo etc, 
 
+> Que es un setInterval 
+
+> Revisar mas sobre refs o referencias 
+
 # **NOTAS RAPIDAS**
 > Que es npx: npx es un comando que viene con npm que permite correr cierto programas que instalo con npm. 
 
@@ -591,9 +1104,16 @@ ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
 
 > `<input type='email' onChange={getCorreo}></input>` -> onChange nos permite detectar un evento de cambio de valor de input el cual podemos utilizar. 
 
+> new Date().toLocaleTimeString() -> No permite obtener el tiempo actual. 
+
 ## **PENDIENTES***
 
 > Reto 4
+
+> Reto 8 
+
+> Reto 9 
+
 
 
 

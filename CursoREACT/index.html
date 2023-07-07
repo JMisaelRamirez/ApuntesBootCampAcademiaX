@@ -13,17 +13,67 @@
 
     </div>
     <script type="text/babel">
-function Series (props) {
-    
+function NuevaClave () {
+    const [claveAntigua,setClaveAntigua] = React.useState('Myspace08360');
+    const [claveNueva, setClaveNueva] = React.useState('');
+    const [confirmarClaveNueva, setConfirmarClaveNueva] = React.useState('');
+
+    let onChangeOld = event => {
+        console.log(event)
+        setClaveAntigua(event.target.value);
+
+    }
+    let onChangeNew = event => {
+        console.log(event)
+        setClaveNueva(event.target.value);
+    }
+    let onChangeConfirm = event => {
+        console.log(event)
+        setConfirmarClaveNueva(event.target.value);
+    }
+
+    let mensaje = (e) => {
+        if (claveAntigua == e.target[0].value) {
+            if (claveNueva != confirmarClaveNueva) {
+            alert(
+                'Verificar que la clave nueva y la clave confirmada coincidan'
+                );
+            }
+            else {
+                alert('Las claves coinciden');
+                setClaveAntigua(claveNueva);
+            }
+        }
+        else alert('Clave antigua incorrecta');
+
+    }
+
+    let enviarFormulario = (e) => {
+        event.preventDefault();
+        mensaje(e);
+    }
+
     return (
-        <ul>
-            {props.series.map(s => (<li>{s}</li>))}
-        </ul>
+        <div>
+            <form onSubmit={enviarFormulario}>
+                <label for="old_password">Old password</label>
+                <input type="text" id="old_password"  />
+                <br/>
+                <label for="new_password">New password</label>
+                <input type="text" id="new_password" onChange={onChangeNew} value={claveNueva}/>
+                <br/>
+                <label for="confirm_new_password" >Confirm new password</label>
+                <input type="text" id="confirm_new_password" onChange={onChangeConfirm} value={confirmarClaveNueva}/>
+                <br/>
+                <input type="submit" value="Enviar"></input>
+            </form>
+        </div>
+
     );
 }
-const series = ['Silicon Valley', 'Mr. Robot', 'Black Mirror', 'Harry Potter'];
 
-ReactDOM.render(<Series series={series}/>, document.getElementById('root'));
+ReactDOM.render(<NuevaClave />, document.getElementById('root'));
+
     </script>
 </body>
 </html>

@@ -406,12 +406,12 @@ Vamos a darle estilo a estas cajas.
 </html>
 ```
 La salida en el browser se muestra a continuacion:
-![salidaEnElBrowser](/CursoCSS/_src/assets/img/outPuts/salidaEnElNavegador.JPG)
+![salidaEnElBrowser](../CursoCSS/_src/assets/img/outPuts/salidaEnElNavegador.JPG)
 
 
 Las dimensiones del elemento soy un div tambien nos la pueden proporcionar el mismo browser con la opcion cacula:
 
-![calculadoDelBrowser](/CursoCSS/_src/assets/img/outPuts/calculadoDelBrowser.JPG)
+![calculadoDelBrowser](../CursoCSS/_src/assets/img/outPuts/calculadoDelBrowser.JPG)
 
 Se puede observar como tiene las mismas dimensiones que le establecimos. 
 
@@ -428,7 +428,7 @@ Si agregamos el siguiente atributo a los elementos a los elementos div y span ob
 ```
 
 Output:
-![calculaConBorder-box](/CursoCSS/_src/assets/img/outPuts/calculaConBorder-box.JPG)
+![calculaConBorder-box](../CursoCSS/_src/assets/img/outPuts/calculaConBorder-box.JPG)
 
  
 2. Para 
@@ -442,7 +442,7 @@ Output:
 ```
 
 OutPut:
-![calculaConContent-box](/CursoCSS/_src/assets/img/outPuts/calculaConContent-box.JPG)
+![calculaConContent-box](../CursoCSS/_src/assets/img/outPuts/calculaConContent-box.JPG)
 
 Ahora, si agregamos el siguiente atributo permite hacer actuador a las cajas span como div, osea como bloque completo. 
 ```html
